@@ -30,7 +30,7 @@ chmod 644 "$WPENGINE_SSH_KEY_PUBLIC_PATH"
 
 printf "\nlocal_branch = $BRANCH\n"
 git config core.sshCommand "ssh -i $WPENGINE_SSH_KEY_PRIVATE_PATH -o UserKnownHostsFile=$KNOWN_HOSTS_PATH"
-git remote add $WPENGINE_ENV git@$WPENGINE_HOST:$WPENGINE_ENV/$WPENGINE_SITE_NAME.git
+git remote add $WPENGINE_SITE_NAME git@$WPENGINE_HOST:$WPENGINE_ENV/$WPENGINE_SITE_NAME.git
 printf "\nlocal_branch = $BRANCH\n"
 printf "\nshow remote $WPENGINE_ENV:\n"
 git remote show $WPENGINE_ENV
@@ -41,4 +41,4 @@ git branch -r
 printf "\ngit status:\n"
 git status
 printf "\nPushing to site = $WPENGINE_SITE_NAME\n"
-git push -fu $WPENGINE_ENV $BRANCH:master
+git push -fu $WPENGINE_SITE_NAME $BRANCH:master
