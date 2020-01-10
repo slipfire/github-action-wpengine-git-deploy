@@ -2,7 +2,7 @@
 
 set -e
 
-: ${WPENGINE_ENVIRONMENT_NAME?Required environment name variable not set.}
+: ${WPENGINE_SITE_NAME?Required environment name variable not set.}
 : ${WPENGINE_SSH_KEY_PRIVATE?Required secret not set.}
 : ${WPENGINE_SSH_KEY_PUBLIC?Required secret not set.}
 
@@ -28,14 +28,17 @@ chmod 644 "$KNOWN_HOSTS_PATH"
 chmod 600 "$WPENGINE_SSH_KEY_PRIVATE_PATH"
 chmod 644 "$WPENGINE_SSH_KEY_PUBLIC_PATH"
 
-printf "\nlocal_branch = $BRANCH"
+printf "\nlocal_branch = $BRANCH\n"
 git config core.sshCommand "ssh -i $WPENGINE_SSH_KEY_PRIVATE_PATH -o UserKnownHostsFile=$KNOWN_HOSTS_PATH"
-git remote add $WPENGINE_ENV git@$WPENGINE_HOST:$WPENGINE_ENV/$WPENGINE_ENVIRONMENT_NAME.git
+git remote add $WPENGINE_ENV git@$WPENGINE_HOST:$WPENGINE_ENV/$WPENGINE_SITE_NAME.git
+printf "\nlocal_branch = $BRANCH\n"
+printf "\nshow remote $WPENGINE_ENV:\n"
 git remote show $WPENGINE_ENV
-printf "\nlocal branches"
+printf "\nlocal branches:\n"
 git branch
-printf "\nremote branches"
+printf "\nremote branche:\n"
 git branch -r
+printf "\ngit status:\n"
 git status
-printf "\nPushing to site = $WPENGINE_ENVIRONMENT_NAME"
+printf "\nPushing to site = $WPENGINE_SITE_NAME\n"
 git push -fu $WPENGINE_ENV $BRANCH:master
