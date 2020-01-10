@@ -13,7 +13,7 @@ workflow "Deploy to WP Engine" {
 action "Git Push to Production" {
   uses = "jovrtn/github-action-wpengine-git-deploy@master"
   env = {
-    WPENGINE_ENVIRONMENT_NAME   = "my-cool-site-production"
+    WPENGINE_SITE_NAME   = "my-cool-site-production"
   }
   secrets = [
     "WPENGINE_SSH_KEY_PRIVATE",
@@ -28,7 +28,7 @@ action "Git Push to Production" {
 
 | Name | Type | Usage |
 |-|-|-|
-| `WPENGINE_ENVIRONMENT_NAME` | Environment Variable | The name of the WP Engine environment you want to deploy to. |
+| `WPENGINE_SITE_NAME` | Environment Variable | The name of the WP Engine site you want to deploy to. |
 | `WPENGINE_SSH_KEY_PRIVATE` | Secret | Private SSH key of your WP Engine git deploy user. See below for SSH key usage. |
 |  `WPENGINE_SSH_KEY_PUBLIC` | Secret | Public SSH key of your WP Engine git deploy user. See below for SSH key usage. |
 
