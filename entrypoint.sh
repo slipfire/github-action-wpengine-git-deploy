@@ -30,14 +30,13 @@ chmod 644 "$WPENGINE_SSH_KEY_PUBLIC_PATH"
 
 git config core.sshCommand "ssh -i $WPENGINE_SSH_KEY_PRIVATE_PATH -o UserKnownHostsFile=$KNOWN_HOSTS_PATH"
 git remote add $WPENGINE_SITE_NAME git@$WPENGINE_HOST:$WPENGINE_ENV/$WPENGINE_SITE_NAME.git
-printf "\nlocal_branch = $BRANCH\n"
-printf "\nshow remote $WPENGINE_SITE_NAME:\n"
-git remote show $WPENGINE_SITE_NAME
-printf "\n\nlocal branches:\n"
+printf "\nLocal branches:\n"
 git branch
-printf "\n\nremote branche:\n"
+printf "\nRemote branch:\n"
 git branch -r
-printf "\n\ngit status:\n"
+printf "\nGit Remote Show $WPENGINE_SITE_NAME:\n"
+git remote show $WPENGINE_SITE_NAME
+printf "\nGit status:\n"
 git status
-printf "\n\nPushing to site = $WPENGINE_SITE_NAME\n"
+printf "\nPushing to WPE Site $WPENGINE_SITE_NAME\n"
 git push -fu $WPENGINE_SITE_NAME $BRANCH:master
