@@ -39,4 +39,4 @@ git remote show $WPENGINE_SITE_NAME
 printf "\nGit status:\n"
 git status
 printf "\nPushing to WPE Site $WPENGINE_SITE_NAME\n"
-git push -fu git@git.wpengine.com:$LOCAL_BRANCH/$WPENGINE_SITE_NAME.git
+git push -fu git@git.wpengine.com:$LOCAL_BRANCH/$WPENGINE_SITE_NAME.git $LOCAL_BRANCH
