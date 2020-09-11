@@ -5,6 +5,8 @@ set -e
 : ${WPENGINE_SITE_NAME?Required environment name variable not set.}
 : ${WPENGINE_SSH_KEY_PRIVATE?Required secret not set.}
 : ${WPENGINE_SSH_KEY_PUBLIC?Required secret not set.}
+: ${WP_ENGINE_ENV?Required environment not set ie staging or production.}
+: ${LOCAL_BRANCH?Required branch not set ie staging or master.}
 
 SSH_PATH="$HOME/.ssh"
 WPENGINE_HOST="git.wpengine.com"
@@ -28,7 +30,7 @@ chmod 600 "$WPENGINE_SSH_KEY_PRIVATE_PATH"
 chmod 644 "$WPENGINE_SSH_KEY_PUBLIC_PATH"
 
 git config core.sshCommand "ssh -i $WPENGINE_SSH_KEY_PRIVATE_PATH -o UserKnownHostsFile=$KNOWN_HOSTS_PATH"
-git remote add $WPENGINE_SITE_NAME git@git.wpengine.com:$LOCAL_BRANCH/$WPENGINE_SITE_NAME.git
+git remote add $WPENGINE_SITE_NAME git@git.wpengine.com:$WP_ENGINE_ENV/$WPENGINE_SITE_NAME.git
 
 printf "\nLocal branches:\n"
 git branch
@@ -39,4 +41,4 @@ git remote show $WPENGINE_SITE_NAME
 printf "\nGit status:\n"
 git status
 printf "\nPushing to WPE Site $WPENGINE_SITE_NAME\n"
-git push -fu git@git.wpengine.com:$LOCAL_BRANCH/$WPENGINE_SITE_NAME.git $LOCAL_BRANCH
+git push -fu git@git.wpengine.com:$WP_ENGINE_ENV/$WPENGINE_SITE_NAME.git $LOCAL_BRANCH
