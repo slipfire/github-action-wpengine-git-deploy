@@ -5,7 +5,7 @@ An action to deploy your repository to a **[WP Engine](https://wpengine.com)** s
 ## Example GitHub Action workflow
 
 ```
-name: Github Action with WP Engine Git Deploy
+name: YIKES, Inc. CI Deploy
 
 on:
   push:
@@ -21,35 +21,18 @@ jobs:
       WPENGINE_SSH_KEY_PRIVATE: ${{ secrets.WPENGINE_SSH_KEY_PRIVATE }}
       WPENGINE_SSH_KEY_PUBLIC: ${{ secrets.WPENGINE_SSH_KEY_PUBLIC }}
     steps:
-    - uses: actions/checkout@v1
-    
-    - name: Build Stuff
-      run: |
-        lando start &&
-        cd wp-content/themes/iiba && lando yarn build:production
-
-    - name: Set deployment gitignores then Commit
-      run: |
-        rm wp-content/themes/iiba/.gitignore
-        rm wp-content/uploads/.htaccess
-        cp dev/deployment/gitignore .gitignore &&
-        timestamp=$(date "+%Y.%m.%d-%H.%M.%S") &&
-        git status &&
-        git add -A &&
-        git commit -m "Github Actions Commit $timestamp"
-
     - name: Deploy to Production with GitHub Action for WP Engine Git
       if: github.ref == 'refs/heads/production'
-      uses: campaignupgrade/github-action-wpengine-git-deploy@0.1.2
+      uses: yikesinc/github-action-wpengine-git-deploy@0.1.2
       env:
-        WPENGINE_ENVIRONMENT_NAME: mycoolinstall
+        WPENGINE_ENVIRONMENT_NAME: 'yikeshosting'
         LOCAL_BRANCH: 'production'
 
     - name: Deploy to WPEngine Staging Site
       if: github.ref == 'refs/heads/staging'  # if pushed to this branch
-      uses: campaignupgrade/github-action-wpengine-git-deploy@master
+      uses: yikesinc/github-action-wpengine-git-deploy@master
       env:
-        WPENGINE_SITE_NAME: 'iiba3staging' # deploy to this WPE site
+        WPENGINE_SITE_NAME: 'yikeshosting' # deploy to this WPE site
         LOCAL_BRANCH: 'staging' # deploy this branch's code
 ```
 
