@@ -1,39 +1,65 @@
-# GitHub Action for WP Engine Git Deployments
+# Yikes WP Engine Deploy
 
 An action to deploy your repository to a **[WP Engine](https://wpengine.com)** site via git. [Read more](https://wpengine.com/git/) about WP Engine's git deployment support.
 
-## Example GitHub Action workflow
+Original action forked from @campaignupgrade who forked from @jovrtn! Thanks y'all!
+
+## Example Production Github Action Deploy
 
 ```
-name: YIKES, Inc. CI Deploy
+name: YIKES, Inc. CI Deploy Master
 
 on:
   push:
     branches:
-     - production
-     - staging
+      - master
 
 jobs:
-  build-and-deploy:
-    name: Build and Deploy to WP Engine
+  build:
     runs-on: ubuntu-18.04
-    env:
-      WPENGINE_SSH_KEY_PRIVATE: ${{ secrets.WPENGINE_SSH_KEY_PRIVATE }}
-      WPENGINE_SSH_KEY_PUBLIC: ${{ secrets.WPENGINE_SSH_KEY_PUBLIC }}
     steps:
-    - name: Deploy to Production with GitHub Action for WP Engine Git
-      if: github.ref == 'refs/heads/production'
-      uses: yikesinc/github-action-wpengine-git-deploy@0.1.2
-      env:
-        WPENGINE_ENVIRONMENT_NAME: 'yikeshosting'
-        LOCAL_BRANCH: 'production'
+    - uses: actions/checkout@v2
+    - run: |
+          git fetch --prune --unshallow
 
-    - name: Deploy to WPEngine Staging Site
-      if: github.ref == 'refs/heads/staging'  # if pushed to this branch
+    - name: GitHub Action for WP Engine Git Deployment
       uses: yikesinc/github-action-wpengine-git-deploy@master
       env:
-        WPENGINE_SITE_NAME: 'yikeshosting' # deploy to this WPE site
-        LOCAL_BRANCH: 'staging' # deploy this branch's code
+        WPENGINE_SITE_NAME: 'yikesinc' # your wp engine site name. example: yikesinc.wpengine.com would be yikesinc
+        LOCAL_BRANCH: 'master' # branch that you're pushing too on WP Engine.
+        WP_ENGINE_ENV: 'production' # environment you're pushing too. Use this for staging on legacy staging.
+        WPENGINE_SSH_KEY_PRIVATE: ${{ secrets.WPENGINE_SSH_KEY_PRIVATE }}
+        WPENGINE_SSH_KEY_PUBLIC: ${{ secrets.WPENGINE_SSH_KEY_PUBLIC }}
+```
+
+## Example Legacy Staging Github Action Deploy
+
+```
+name: YIKES, Inc. CI Deploy Staging
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches:
+      - staging
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - run: |
+          git fetch --prune --unshallow
+
+    - name: GitHub Action for WP Engine Git Deployment
+      uses: yikesinc/github-action-wpengine-git-deploy@master
+      env:
+        WPENGINE_SITE_NAME: 'yikesinc'
+        LOCAL_BRANCH: 'staging'
+        WP_ENGINE_ENV: 'staging'
+        WPENGINE_SSH_KEY_PRIVATE: ${{ secrets.WPENGINE_SSH_KEY_PRIVATE }}
+        WPENGINE_SSH_KEY_PUBLIC: ${{ secrets.WPENGINE_SSH_KEY_PUBLIC }}
 ```
 
 ## Environment Variables & Secrets
@@ -45,12 +71,7 @@ jobs:
 | `WPENGINE_SITE_NAME` | Environment Variable | The name of the WP Engine site you want to deploy to. |
 | `WPENGINE_SSH_KEY_PRIVATE` | Secret | Private SSH key of your WP Engine git deploy user. See below for SSH key usage. |
 |  `WPENGINE_SSH_KEY_PUBLIC` | Secret | Public SSH key of your WP Engine git deploy user. See below for SSH key usage. |
-
-### Optional
-
-| Name | Type  | Usage |
-|-|-|-|
-| `WPENGINE_ENVIRONMENT` | Environment Variable  | Defaults to `production`. You shouldn't need to change this, but if you're using WP Engine's legacy staging, you can override the default and set to `staging` if needed. |
+| `WPENGINE_ENV` | Environment Variable  | Defaults to `production`. You shouldn't need to change this, but if you're using WP Engine's legacy staging, you can override the default and set to `staging` if needed. |
 | `LOCAL_BRANCH` | Environment Variable  | Set which branch in your repository you'd like to push to WP Engine. Defaults to `master`. |
 
 ### Further reading
