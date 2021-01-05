@@ -36,14 +36,12 @@ jobs:
 
 ```
 name: SlipFire Deploy Staging
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
+
 on:
   push:
     branches:
       - staging
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
     runs-on: ubuntu-18.04
