@@ -1,18 +1,18 @@
-# Yikes WP Engine Deploy
+# SlipFire: Github to WP Engine Deploy
 
 An action to deploy your repository to a **[WP Engine](https://wpengine.com)** site via git. [Read more](https://wpengine.com/git/) about WP Engine's git deployment support.
 
-Original action forked from @campaignupgrade who forked from @jovrtn! Thanks y'all!
+Original action forked from @yikesinc who forked from @campaignupgrade who forked from @jovrtn! Thanks everyone!
 
 ## Example Production Github Action Deploy
 
 ```
-name: YIKES, Inc. CI Deploy Master
+name: SlipFire Deploy Main
 
 on:
   push:
     branches:
-      - master
+      -  main
 
 jobs:
   build:
@@ -23,11 +23,11 @@ jobs:
           git fetch --prune --unshallow
 
     - name: GitHub Action for WP Engine Git Deployment
-      uses: yikesinc/github-action-wpengine-git-deploy@master
+      uses: slipfire/github-action-wpengine-git-deploy@master
       env:
-        WPENGINE_SITE_NAME: 'yikesinc' # your wp engine site name. example: yikesinc.wpengine.com would be yikesinc
-        LOCAL_BRANCH: 'master' # branch that you're pushing too on WP Engine.
-        WP_ENGINE_ENV: 'production' # environment you're pushing too. Use this for staging on legacy staging.
+        WPENGINE_SITE_NAME: 'slipfire' # your wp engine site name. example: slipfire.wpengine.com would be slipfire
+        LOCAL_BRANCH: 'main' # branch that you're pushing too on WP Engine.
+        WP_ENGINE_ENV: 'production' # environment you're pushing too. Use 'staging' for legacy staging.
         WPENGINE_SSH_KEY_PRIVATE: ${{ secrets.WPENGINE_SSH_KEY_PRIVATE }}
         WPENGINE_SSH_KEY_PUBLIC: ${{ secrets.WPENGINE_SSH_KEY_PUBLIC }}
 ```
@@ -35,7 +35,7 @@ jobs:
 ## Example Legacy Staging Github Action Deploy
 
 ```
-name: YIKES, Inc. CI Deploy Staging
+name: SlipFire Deploy Staging
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
@@ -53,9 +53,9 @@ jobs:
           git fetch --prune --unshallow
 
     - name: GitHub Action for WP Engine Git Deployment
-      uses: yikesinc/github-action-wpengine-git-deploy@master
+      uses: slipfire/github-action-wpengine-git-deploy@master
       env:
-        WPENGINE_SITE_NAME: 'yikesinc'
+        WPENGINE_SITE_NAME: 'slipfire'
         LOCAL_BRANCH: 'staging'
         WP_ENGINE_ENV: 'staging'
         WPENGINE_SSH_KEY_PRIVATE: ${{ secrets.WPENGINE_SSH_KEY_PRIVATE }}
