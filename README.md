@@ -7,8 +7,8 @@ These configs automatically deploy when:
 - when a PR is merged into the designated branch
 
 ## To use
-1. create a `.github/workflows` folder in your project repository.
-2. create a .yml file, name it whatever you want (e.g. deploy-to-production.yml).
+1. Create a `.github/workflows` folder in your project repository.
+2. Create a .yml file, name it whatever you want (e.g. deploy-to-production.yml).
 3. Add the appropriate config, below, to your file.
 4. Update the `WPENGINE_SITE_NAME`, `LOCAL_BRANCH` and `WP_ENGINE_ENV` in the file.
 5. Add two secrets to Github, named `WPENGINE_SSH_KEY_PRIVATE` and `WPENGINE_SSH_KEY_PUBLIC`, with the appropriate values.
