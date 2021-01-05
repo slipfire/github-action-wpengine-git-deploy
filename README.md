@@ -52,7 +52,7 @@ name: SlipFire Deploy Staging
 on:
   push:
     branches:
-      - staging
+      - develop
 
 jobs:
   build:
@@ -66,7 +66,7 @@ jobs:
       uses: slipfire/github-action-wpengine-git-deploy@master
       env:
         WPENGINE_SITE_NAME: 'slipfire'
-        LOCAL_BRANCH: 'staging'
+        LOCAL_BRANCH: 'develop'
         WP_ENGINE_ENV: 'staging'
         WPENGINE_SSH_KEY_PRIVATE: ${{ secrets.WPENGINE_SSH_KEY_PRIVATE }}
         WPENGINE_SSH_KEY_PUBLIC: ${{ secrets.WPENGINE_SSH_KEY_PUBLIC }}
