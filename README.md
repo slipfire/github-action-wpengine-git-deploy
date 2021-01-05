@@ -2,6 +2,10 @@
 
 An action to deploy your repository to a **[WP Engine](https://wpengine.com)** site via git. [Read more](https://wpengine.com/git/) about WP Engine's git deployment support.
 
+These configs automatically deploy when:
+- a commit is made to the designated branch
+- when a PR is merged into the designated branch
+
 Original action forked from @yikesinc who forked from @campaignupgrade who forked from @jovrtn! Thanks everyone!
 
 ## Example Production Github Action Deploy
