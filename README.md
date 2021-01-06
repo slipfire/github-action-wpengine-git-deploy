@@ -65,9 +65,9 @@ jobs:
     - name: GitHub Action for WP Engine Git Deployment
       uses: slipfire/github-action-wpengine-git-deploy@master
       env:
-        WPENGINE_SITE_NAME: 'slipfire'
+        WPENGINE_SITE_NAME: 'slipfire-staging'
         LOCAL_BRANCH: 'develop'
-        WP_ENGINE_ENV: 'staging' is # This may be set to production for the new WPE Staging environments
+        WP_ENGINE_ENV: 'staging' is # This may be set to production is using the new WPE Staging environments
         WPENGINE_SSH_KEY_PRIVATE: ${{ secrets.WPENGINE_SSH_KEY_PRIVATE }}
         WPENGINE_SSH_KEY_PUBLIC: ${{ secrets.WPENGINE_SSH_KEY_PUBLIC }}
 ```
