@@ -31,7 +31,7 @@ git remote add $WPENGINE_SITE_NAME git@$WPENGINE_HOST:$WP_ENGINE_ENV/$WPENGINE_S
 
 printf "\nLocal branches:\n"
 git branch
-printf "\nRemote branch:\n"
+printf "\nRemote branches:\n"
 git branch -r
 printf "\nGit Remote Show $WPENGINE_SITE_NAME:\n"
 git remote show $WPENGINE_SITE_NAME
